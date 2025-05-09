@@ -185,11 +185,11 @@ Default admin credentials:
    ```bash
    npm run prisma:migrate
 ```
-```
+
    √ We need to reset the "public" schema at "ep-lively-brook-a4g1nxmk-pooler.us-east-1.aws.neon.tech" Do you want to continue? All data will be lost. ... **yes**
 
     ? Enter a name for the new migration: » **gymclassjt**
-```
+
 7. Start the development server:
    ```bash
    npm run dev
