@@ -11,15 +11,46 @@ This project is a RESTful API for a Gym Class Scheduling and Membership Manageme
 The database consists of three main models with the following relationships:
 
 ```
-User (ADMIN, TRAINER, TRAINEE)
-  ↑
-  |
-  ↓
-ClassSchedule ← created by → User (ADMIN)
-  ↑            assigned to → User (TRAINER)
-  |
-  ↓
-Booking ← created by → User (TRAINEE)
+[User]
+ - id (PK)
+ - name
+ - email (Unique)
+ - password
+ - role (Enum: ADMIN, TRAINER, TRAINEE)
+ - createdAt
+ - updatedAt
+
+Relationships:
+ - One-to-Many with ClassSchedule (as trainer)
+ - One-to-Many with Booking (as trainee)
+
+
+[ClassSchedule]
+ - id (PK)
+ - trainerId (FK → User.id)
+ - date
+ - startTime
+ - endTime
+ - traineeCount
+ - createdAt
+ - updatedAt
+
+Relationships:
+ - Many-to-One with User (as trainer)
+ - One-to-Many with Booking
+
+
+[Booking]
+ - id (PK)
+ - traineeId (FK → User.id)
+ - scheduleId (FK → ClassSchedule.id)
+ - createdAt
+ - updatedAt
+
+Relationships:
+ - Many-to-One with User (as trainee)
+ - Many-to-One with ClassSchedule (as schedule)
+
 ```
 
 ## 🛠️ Technology Stack

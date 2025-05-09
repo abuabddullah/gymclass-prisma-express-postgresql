@@ -32,7 +32,15 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/trainer', trainerRoutes);
 app.use('/api/trainee', traineeRoutes);
 
-
+app.get('/', (req, res) => {
+  const erdPath = path.join(__dirname, '..', 'prisma', 'ERD.svg');
+  res.sendFile(erdPath, (err) => {
+    if (err) {
+      console.error('Error sending ERD.svg:', err);
+      res.status(500).send('Failed to load ERD diagram');
+    }
+  });
+});
 
 // Health check endpoint
 app.get('/health', (req, res) => {
