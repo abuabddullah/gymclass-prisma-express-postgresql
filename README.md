@@ -4,15 +4,15 @@ A complete backend API for managing gym classes, trainers, and member bookings.
 
 ## 📑 Table of Contents
 
-- [🏋️‍♂️ Overview](#️️️️️️🏋️‍♂️-overview)
-- [📊 Relational Diagram](#️️️️️️📊-relational-diagram)
-- [🛠️ Technology Stack](#️️️️️️🛠️-technology-stack)
-- [📝 API Endpoints](#️️️️️️📝-api-endpoints)
-  - [🔐 Auth Endpoints](#️️️️️️🔐-auth-endpoints)
-  - [🛠️ Admin Endpoints](#️️️️️️🛠️-admin-endpoints)
-  - [🏋️ Trainer Endpoints](#️️️️️️🏋️-trainer-endpoints)
-  - [🧘 Trainee Endpoints](#️️️️️️🧘-trainee-endpoints)
-- [📌 Environment Variables](#️️️️️️📌-environment-variables)
+- [🏋️‍♂️ Overview](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#%EF%B8%8F%EF%B8%8F-overview)
+- [📊 Relational Diagram](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-relational-diagram)
+- [🛠️ Technology Stack](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#%EF%B8%8F-technology-stack)
+- [📝 API Endpoints](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-api-endpoints)
+  - [🔐 Auth Endpoints](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-auth-endpoints)
+  - [🛠️ Admin Endpoints](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#%EF%B8%8F-admin-endpoints)
+  - [🏋️ Trainer Endpoints](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#%EF%B8%8F-trainer-endpoints)
+  - [🧘 Trainee Endpoints](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-trainee-endpoints)
+- [📌 Environment Variables](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-environment-variables)
 - [📚 Database Schema](#️️️️️️📚-database-schema)
 - [👨‍💻 Admin Credentials](#️️️️️️👨‍💻-admin-credentials)
 - [🚀 Local Development](#️️️️️️🚀-local-development)
@@ -90,7 +90,7 @@ The database consists of three main models with the following relationships:
 
 ---
 
-### 📌 Environment Variables
+### 📌 Environment Variables (if use <a href="https://github.com/abuabddullah/gymclass-prisma-express-postgresql/blob/main/gymclass.postman_collection.json">gymclass.postman_collection.json</a> file)
 
 | Variable          | Description                                       |
 |-------------------|---------------------------------------------------|
@@ -99,7 +99,7 @@ The database consists of three main models with the following relationships:
 | `{{TRAINER_TOKEN}}`| Bearer token for trainer authentication           |
 | `{{TRAINEE_TOKEN}}`| Bearer token for trainee authentication           |
 ```
-
+```
 
 
 ## 📚 Database Schema
