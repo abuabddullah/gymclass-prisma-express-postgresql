@@ -185,7 +185,7 @@ Default admin credentials:
    ```bash
    npm run prisma:migrate
 ```
-6. if use my db do bellow steps(optional):
+6.2 + 6.3  if use my db do bellow steps(optional):
    ```bash
    √ We need to reset the "public" schema at "ep-lively-brook-a4g1nxmk-pooler.us-east-1.aws.neon.tech" Do you want to continue? All data will be lost. ... **yes**
 
