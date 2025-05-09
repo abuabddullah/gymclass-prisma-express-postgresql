@@ -13,11 +13,10 @@ A complete backend API for managing gym classes, trainers, and member bookings.
   - [🏋️ Trainer Endpoints](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#%EF%B8%8F-trainer-endpoints)
   - [🧘 Trainee Endpoints](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-trainee-endpoints)
 - [📌 Environment Variables](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-environment-variables)
-- [📚 Database Schema](#️️️️️️📚-database-schema)
-- [👨‍💻 Admin Credentials](#️️️️️️👨‍💻-admin-credentials)
-- [🚀 Local Development](#️️️️️️🚀-local-development)
-- [🔗 Links](#️️️️️️link-)
-- [🙏 Regards](#️️️️️️regards)
+- [📚 Database Schema](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-database-schema)
+- [👨‍💻 Admin Credentials](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-admin-credentials)
+- [🚀 Local Development](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#-local-development)
+- [🔗 Links](https://github.com/abuabddullah/gymclass-prisma-express-postgresql#link-)
 
 
 ## 🏋️‍♂️ Overview
