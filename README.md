@@ -53,6 +53,8 @@ Relationships:
 
 ```
 
+<img src="https://res.cloudinary.com/dglsw3gml/image/upload/v1746790860/portfolio/GYMCLASS-relational-diagram_ebuxuu.png" width="600px"/>
+
 ## 🛠️ Technology Stack
 
 - **Programming Language**: TypeScript
