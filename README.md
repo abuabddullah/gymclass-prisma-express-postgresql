@@ -151,18 +151,43 @@ Default admin credentials:
 ## 🚀 Local Development
 
 1. Clone the repository
-2. Create a `.env` file (use `.env.example` as a template)
+```
+    git clone https://github.com/abuabddullah/gymclass-prisma-express-postgresql.git
+```
+2. enter into gymclass-prisma-express-postgresql folder
+```
+    cd gymclass-prisma-express-postgresql
+```
+2. Create a `.env` file (though i didn't ignore .env). put bellow valuse
+```
+    # Database Connection
+    DATABASE_URL=postgresql:###############put your valudes#################=require
+
+    # Node Environment
+    NODE_ENV=development
+
+    # JWT Secret
+    JWT_SECRET=sM9F2u+#######################you secret###########=
+    JWT_EXPIRES_IN=7d
+
+    # Server
+    PORT=5000
+```
 3. Install dependencies:
    ```bash
    npm install
    ```
 4. Generate Prisma client:
    ```bash
-   npx prisma generate
+   npm run prisma:generate
    ```
 5. Run database migrations:
    ```bash
-   npx prisma migrate dev
+   npm run prisma:migrate
+
+   √ We need to reset the "public" schema at "ep-lively-brook-a4g1nxmk-pooler.us-east-1.aws.neon.tech" Do you want to continue? All data will be lost. ... yes
+
+    ? Enter a name for the new migration: » gymclassjt
    ```
 6. Start the development server:
    ```bash
