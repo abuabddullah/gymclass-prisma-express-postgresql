@@ -190,6 +190,8 @@ Default admin credentials:
 
     ? Enter a name for the new migration: » **gymclassjt**
 
+    ```
+
 7. Start the development server:
    ```bash
    npm run dev
