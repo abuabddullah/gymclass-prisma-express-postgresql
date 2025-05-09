@@ -10,55 +10,11 @@ This project is a RESTful API for a Gym Class Scheduling and Membership Manageme
 
 The database consists of three main models with the following relationships:
 
-```
-[User]
- - id (PK)
- - name
- - email (Unique)
- - password
- - role (Enum: ADMIN, TRAINER, TRAINEE)
- - createdAt
- - updatedAt
-
-Relationships:
- - One-to-Many with ClassSchedule (as trainer)
- - One-to-Many with Booking (as trainee)
-
-
-[ClassSchedule]
- - id (PK)
- - trainerId (FK → User.id)
- - date
- - startTime
- - endTime
- - traineeCount
- - createdAt
- - updatedAt
-
-Relationships:
- - Many-to-One with User (as trainer)
- - One-to-Many with Booking
-
-
-[Booking]
- - id (PK)
- - traineeId (FK → User.id)
- - scheduleId (FK → ClassSchedule.id)
- - createdAt
- - updatedAt
-
-Relationships:
- - Many-to-One with User (as trainee)
- - Many-to-One with ClassSchedule (as schedule)
-
-```
-
 <img src="https://res.cloudinary.com/dglsw3gml/image/upload/v1746790860/portfolio/GYMCLASS-relational-diagram_ebuxuu.png" width="600px"/>
 
 ## 🛠️ Technology Stack
 
-- **Programming Language**: TypeScript
-- **Web Framework**: Express.js
+- **Programming Language**: Node, Express, TypeScript
 - **ORM**: Prisma
 - **Database**: PostgreSQL (Neon)
 - **Authentication**: JWT (JSON Web Tokens)
@@ -66,63 +22,67 @@ Relationships:
 - **Password Hashing**: bcrypt
 
 ## 📝 API Endpoints
+- use this <a href="https://github.com/abuabddullah/gymclass-prisma-express-postgresql/blob/main/gymclass.postman_collection.json">gymclass.postman_collection.json</a> file and import it in your **postman** or copy paste from bellow
 
-### Auth
 
-- `POST /api/auth/register` - Register a new trainee
-  - Parameters: `{ name, email, password }`
-  - Response: `{ success, statusCode, message, data: { id, name, email, role, token } }`
+### 🔐 Auth Endpoints
 
-- `POST /api/auth/login` - Login a user
-  - Parameters: `{ email, password }`
-  - Response: `{ success, statusCode, message, data: { id, name, email, role, token } }`
+| # | Method | Endpoint                   | Description                  | Auth Required | Request Body (JSON)                                                                 | Response                      |
+|---|--------|----------------------------|------------------------------|---------------|-------------------------------------------------------------------------------------|-------------------------------|
+| 1 | POST   | `/api/auth/register`       | Register a new user          | ❌ No          | `{ "name": "John", "email": "john@example.com", "password": "password123" }`        | `201 Created` / `400 Bad Request` |
+| 2 | POST   | `/api/auth/login`          | Login and receive token      | ❌ No          | `{ "email": "john@example.com", "password": "password123" }`                        | `200 OK` / `401 Unauthorized`     |
 
-### Admin
+---
 
-- `POST /api/admin/trainers` - Create a new trainer
-  - Parameters: `{ name, email, password }`
-  - Response: `{ success, statusCode, message, data: { id, name, email, role } }`
+### 🛠️ Admin Endpoints
 
-- `GET /api/admin/trainers` - Get all trainers
-  - Response: `{ success, statusCode, message, data: [{ id, name, email, role }] }`
+> All Admin routes require: `Authorization: Bearer {{ADMIN_TOKEN}}`
 
-- `POST /api/admin/schedules` - Create a class schedule
-  - Parameters: `{ trainerId, date, startTime, endTime }`
-  - Response: `{ success, statusCode, message, data: { id, trainerId, date, startTime, endTime, traineeCount } }`
+| # | Method | Endpoint                            | Description                  | Request Body (JSON)                                                                                                  | Response                            |
+|---|--------|-------------------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| 3 | POST   | `/api/admin/trainers`              | Create a new trainer         | `{ "name": "Trainer One", "email": "trainer@example.com", "password": "trainer123" }`                                | `201 Created` / `409 Conflict`      |
+| 4 | GET    | `/api/admin/trainers`              | Get all trainers             | _None_                                                                                                               | `200 OK`                            |
+| 5 | POST   | `/api/admin/schedules`             | Create a schedule            | `{ "trainerId": 1, "date": "2025-05-01", "startTime": "2025-05-01T10:00:00Z", "endTime": "2025-05-01T12:00:00Z" }`   | `201 Created` / `400 Bad Request`   |
+| 6 | PUT    | `/api/admin/schedules/{id}`        | Update schedule              | `{ "trainerId": 2 }`                                                                                                 | `200 OK` / `404 Not Found`          |
+| 7 | DELETE | `/api/admin/schedules/{id}`        | Delete schedule              | _None_                                                                                                               | `204 No Content` / `404 Not Found`  |
 
-- `GET /api/admin/schedules` - Get all schedules
-  - Response: `{ success, statusCode, message, data: [{ id, trainerId, date, startTime, endTime, traineeCount }] }`
+---
 
-- `PUT /api/admin/schedules/:id` - Update a schedule
-  - Parameters: `{ trainerId }`
-  - Response: `{ success, statusCode, message, data: { id, trainerId, date, startTime, endTime, traineeCount } }`
+### 🏋️ Trainer Endpoints
 
-- `DELETE /api/admin/schedules/:id` - Delete a schedule
-  - Response: `{ success, statusCode, message, data: null }`
+> All Trainer routes require: `Authorization: Bearer {{TRAINER_TOKEN}}`
 
-### Trainer
+| # | Method | Endpoint                   | Description            | Request Body | Response   |
+|---|--------|----------------------------|------------------------|--------------|------------|
+| 8 | GET    | `/api/trainer/schedules`   | Get trainer schedules  | _None_       | `200 OK`   |
 
-- `GET /api/trainer/schedules` - Get trainer schedules
-  - Response: `{ success, statusCode, message, data: [{ id, date, startTime, endTime, traineeCount, bookings }] }`
+---
 
-### Trainee
+### 🧘 Trainee Endpoints
 
-- `PUT /api/trainee/profile` - Update trainee profile
-  - Parameters: `{ name, email, password }`
-  - Response: `{ success, statusCode, message, data: { id, name, email, role } }`
+> All Trainee routes require: `Authorization: Bearer {{TRAINEE_TOKEN}}`
 
-- `POST /api/trainee/bookings` - Book a class
-  - Parameters: `{ scheduleId }`
-  - Response: `{ success, statusCode, message, data: { id, traineeId, scheduleId, createdAt } }`
+| #  | Method | Endpoint                              | Description                | Request Body (JSON)                                                                 | Response                         |
+|----|--------|---------------------------------------|----------------------------|-------------------------------------------------------------------------------------|----------------------------------|
+| 9  | PUT    | `/api/trainee/profile`                | Update profile             | `{ "name": "Updated Name", "email": "updated@example.com", "password": "newpassword123" }` | `200 OK` / `400 Bad Request`     |
+| 10 | POST   | `/api/trainee/bookings`               | Book a class               | `{ "scheduleId": 1 }`                                                               | `201 Created` / `409 Conflict`   |
+| 11 | DELETE | `/api/trainee/bookings/{id}`          | Cancel a booking           | _None_                                                                              | `204 No Content` / `404 Not Found` |
+| 12 | GET    | `/api/trainee/schedules`              | View available schedules   | _None_                                                                              | `200 OK`                         |
+| 13 | GET    | `/api/trainee/bookings`               | View my bookings           | _None_                                                                              | `200 OK`                         |
 
-- `DELETE /api/trainee/bookings/:id` - Cancel a booking
-  - Response: `{ success, statusCode, message, data: null }`
+---
 
-- `GET /api/trainee/schedules` - Get available schedules
-  - Response: `{ success, statusCode, message, data: [{ id, trainerId, date, startTime, endTime, traineeCount }] }`
+### 📌 Environment Variables
 
-- `GET /api/trainee/bookings` - Get trainee bookings
-  - Response: `{ success, statusCode, message, data: [{ id, scheduleId, schedule }] }`
+| Variable          | Description                                       |
+|-------------------|---------------------------------------------------|
+| `{{BASE_URL}}`     | Base URL for the API (e.g. `http://localhost:5000`) |
+| `{{ADMIN_TOKEN}}`  | Bearer token for admin authentication             |
+| `{{TRAINER_TOKEN}}`| Bearer token for trainer authentication           |
+| `{{TRAINEE_TOKEN}}`| Bearer token for trainee authentication           |
+```
+
+
 
 ## 📚 Database Schema
 
@@ -186,7 +146,7 @@ model Booking {
 Default admin credentials:
 
 - Email: `admin@admin.admin`
-- Password: `admin123`
+- Password: `000000`
 
 ## 🚀 Local Development
 
@@ -209,37 +169,11 @@ Default admin credentials:
    npm run dev
    ```
 
-## 🌐 Deployment
 
-This project is configured for easy deployment to Vercel:
+## Link : 
+* Live link : <a target="_blank" href="https://gymclass-server.vercel.app/">https://gymclass-server.vercel.app/</a>
+* github link : <a target="_blank" href="https://github.com/abuabddullah/gymclass-prisma-express-postgresql">https://github.com/abuabddullah/gymclass-prisma-express-postgresql</a>
 
-1. Make sure all dependencies are installed:
-   ```bash
-   npm install
-   ```
-2. Build the project:
-   ```bash
-   npm run build
-   ```
-3. Deploy to Vercel:
-   ```bash
-   vercel
-   ```
 
-## 📋 Business Rules
-
-- **Class Scheduling**:
-  - Maximum 5 class schedules per day
-  - Each class lasts exactly 2 hours
-  - Maximum 10 trainees per schedule
-  - Only admins can create schedules and assign trainers
-
-- **Booking System**:
-  - Trainees can book available schedules (max 10 trainees)
-  - Trainees cannot book multiple classes in overlapping time slots
-  - Trainees can cancel bookings
-
-- **Roles**:
-  - **Admin**: Create/manage trainers, schedule classes, assign trainers
-  - **Trainer**: View assigned schedules
-  - **Trainee**: Create/manage profile, book/cancel classes
+### Regards
+Asif A Owadud
