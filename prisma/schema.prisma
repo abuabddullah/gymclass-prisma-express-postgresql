@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  TRAINER
+  TRAINEE
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  trainerSchedules ClassSchedule[] @relation("TrainerSchedules")
+  traineeBookings  Booking[]       @relation("TraineeBookings")
+
+  @@map("users")
+}
+
+model ClassSchedule {
+  id           Int      @id @default(autoincrement())
+  trainerId    Int
+  date         DateTime
+  startTime    DateTime
+  endTime      DateTime
+  traineeCount Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  trainer  User      @relation("TrainerSchedules", fields: [trainerId], references: [id])
+  bookings Booking[] @relation("ScheduleBookings")
+
+  @@map("class_schedules")
+}
+
+model Booking {
+  id         Int      @id @default(autoincrement())
+  traineeId  Int
+  scheduleId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  trainee  User          @relation("TraineeBookings", fields: [traineeId], references: [id])
+  schedule ClassSchedule @relation("ScheduleBookings", fields: [scheduleId], references: [id])
+
+  @@map("bookings")
+}
