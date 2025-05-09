@@ -2,6 +2,24 @@
 
 A complete backend API for managing gym classes, trainers, and member bookings.
 
+## 📑 Table of Contents
+
+- [🏋️‍♂️ Overview](#️️️️️️🏋️‍♂️-overview)
+- [📊 Relational Diagram](#️️️️️️📊-relational-diagram)
+- [🛠️ Technology Stack](#️️️️️️🛠️-technology-stack)
+- [📝 API Endpoints](#️️️️️️📝-api-endpoints)
+  - [🔐 Auth Endpoints](#️️️️️️🔐-auth-endpoints)
+  - [🛠️ Admin Endpoints](#️️️️️️🛠️-admin-endpoints)
+  - [🏋️ Trainer Endpoints](#️️️️️️🏋️-trainer-endpoints)
+  - [🧘 Trainee Endpoints](#️️️️️️🧘-trainee-endpoints)
+- [📌 Environment Variables](#️️️️️️📌-environment-variables)
+- [📚 Database Schema](#️️️️️️📚-database-schema)
+- [👨‍💻 Admin Credentials](#️️️️️️👨‍💻-admin-credentials)
+- [🚀 Local Development](#️️️️️️🚀-local-development)
+- [🔗 Links](#️️️️️️link-)
+- [🙏 Regards](#️️️️️️regards)
+
+
 ## 🏋️‍♂️ Overview
 
 The Gym Class Scheduling and Membership Management System is a backend API solution built to manage the daily operations of a gym with clarity, role separation, and strict business logic enforcement. Developed using Node.js, Express, and TypeScript, and powered by a PostgreSQL database managed through Prisma ORM, the system facilitates streamlined management of users, classes, and bookings. It defines three primary user roles: Admins, Trainers, and Trainees, each with controlled access and distinct capabilities. Admins have the authority to register trainers, create and manage class schedules, and assign trainers to scheduled slots, while ensuring business rules are strictly followed—most notably, a maximum of five class schedules per day, with each class lasting exactly two hours. Trainers can only view their assigned classes and are not permitted to alter schedules or trainee information. Trainees, on the other hand, can register, manage their profiles, browse available classes, and make or cancel bookings, provided the selected class does not exceed its maximum capacity of ten trainees or overlap with another booking by the same user. The system prevents overbooking by rejecting further reservations once the trainee limit is reached and enforces a no double-booking rule within the same time slot. JWT-based authentication ensures secure access to endpoints, and Zod-based validation supports robust request handling. Passwords are securely stored using bcrypt hashing, and detailed error messages are returned for unauthorized access, booking conflicts, and validation failures. This system not only simplifies the daily scheduling and membership process but also guarantees a consistent and organized approach to managing gym operations, making it a practical and scalable solution for real-world fitness centers.
